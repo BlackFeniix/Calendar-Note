@@ -1,4 +1,4 @@
-package com.blackhito.calendarnote.ui.theme
+package com.blackhito.ui.theme
 
 import android.app.Activity
 import android.os.Build

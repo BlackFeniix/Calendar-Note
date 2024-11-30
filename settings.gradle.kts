@@ -21,4 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Calendar Note"
 include(":app")
- 
+include(":domain")
+include(":ui")
+include(":data")
