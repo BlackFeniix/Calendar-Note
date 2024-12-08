@@ -1,6 +1,6 @@
-package com.blackhito.domain.models
+package com.blackhito.models
 
-data class Note(
+data class NoteUI(
     val id: Int,
     val dateStart: Long,
     val dateFinish: Long,
