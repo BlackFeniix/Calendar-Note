@@ -11,10 +11,15 @@ fun convertMillisToDate(millis: Long): String {
     return formatter.format(Date(millis))
 }
 
+fun convertMillisToDateWithHour(millis: Long): String {
+    val formatter = SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.getDefault())
+    return formatter.format(Date(millis))
+}
+
 fun convertMillisToHour(millis: Long): String {
     val formatter = SimpleDateFormat("HH:mm",
         Locale.getDefault())
-    formatter.timeZone = TimeZone.getTimeZone("UTC")
+    //formatter.timeZone = TimeZone.getTimeZone("UTC")
     return formatter.format(Date(millis))
 }
 
