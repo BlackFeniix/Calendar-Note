@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.blackhito.ui.theme.CalendarNoteTheme
-import com.blackhito.ui.utils.convertMillisToDate
 import com.blackhito.ui.utils.convertMillisToDateWithHour
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,8 +29,7 @@ fun AddNewNoteScreen(modifier: Modifier = Modifier) {
     val viewModel = AddNewNoteViewModel()
     val name by viewModel.getName().collectAsStateWithLifecycle()
     val description by viewModel.getDescription().collectAsStateWithLifecycle()
-    val dateStart by viewModel.getDateStart().collectAsStateWithLifecycle()
-    val dateFinish by viewModel.getDateFinish().collectAsStateWithLifecycle()
+
 
     val currentTime = Calendar.getInstance()
     val timePickerState = rememberTimePickerState(
@@ -39,7 +37,13 @@ fun AddNewNoteScreen(modifier: Modifier = Modifier) {
         initialHour = currentTime.get(Calendar.HOUR_OF_DAY),
         initialMinute = currentTime.get(Calendar.MINUTE)
     )
+    val timePickerState2 = rememberTimePickerState(
+        is24Hour = true,
+        initialHour = currentTime.get(Calendar.HOUR_OF_DAY),
+        initialMinute = currentTime.get(Calendar.MINUTE)
+    )
     val datePickerState = rememberDatePickerState(initialDisplayMode = DisplayMode.Input)
+    val datePickerState2 = rememberDatePickerState(initialDisplayMode = DisplayMode.Input)
 
     val openDateStartDialog = remember { mutableStateOf(false) }
     val openDateFinishDialog = remember { mutableStateOf(false) }
@@ -54,7 +58,7 @@ fun AddNewNoteScreen(modifier: Modifier = Modifier) {
             onValueChange = viewModel::setDescription,
             placeholder = { Text("Описание") })
 
-        Text(text = "Начало заметки: ${convertMillisToDateWithHour(dateStart)}")
+        Text(text = "Начало заметки: ${convertMillisToDateWithHour(timePickerState.hour * 60 * 60 * 1000 + timePickerState.minute * 60 * 1000 + (datePickerState.selectedDateMillis ?: 0L))}")
         TimeInput(state = timePickerState)
         Button(onClick = {
             openDateStartDialog.value = true
@@ -62,8 +66,8 @@ fun AddNewNoteScreen(modifier: Modifier = Modifier) {
             Text(text = "Выбрать дату начала")
         }
 
-        Text(text = "Конец заметки: ${convertMillisToDateWithHour(dateFinish)}")
-        TimeInput(state = timePickerState)
+        Text(text = "Конец заметки: ${convertMillisToDateWithHour(timePickerState2.hour * 60 * 60 * 1000 + timePickerState2.minute * 60 * 1000 + (datePickerState2.selectedDateMillis ?: 0L))}")
+        TimeInput(state = timePickerState2)
         Button(onClick = {
             openDateFinishDialog.value = true
         }) {
@@ -80,23 +84,25 @@ fun AddNewNoteScreen(modifier: Modifier = Modifier) {
         DatePickerDialog(onDismissRequest = { openDateStartDialog.value = false }, confirmButton = {
             Button(onClick = {
                 openDateStartDialog.value = false
-                viewModel.setDateStart(datePickerState.selectedDateMillis ?: 0L)
+                datePickerState.selectedDateMillis?.let { viewModel.setDateStart(it) }
             }
             ) { Text(text = "OK") }
         }) {
-            DatePicker(state = datePickerState)
+            DatePicker(state = datePickerState, showModeToggle = true)
         }
     }
 
     if (openDateFinishDialog.value) {
-        DatePickerDialog(onDismissRequest = { openDateFinishDialog.value = false }, confirmButton = {
-            Button(onClick = {
-                openDateFinishDialog.value = false
-                viewModel.setDateFinish(datePickerState.selectedDateMillis ?: 0L)
-            }
-            ) { Text(text = "OK") }
-        }) {
-            DatePicker(state = datePickerState)
+        DatePickerDialog(
+            onDismissRequest = { openDateFinishDialog.value = false },
+            confirmButton = {
+                Button(onClick = {
+                    openDateFinishDialog.value = false
+                    viewModel.setDateFinish(datePickerState.selectedDateMillis ?: 0L)
+                }
+                ) { Text(text = "OK") }
+            }) {
+            DatePicker(state = datePickerState2, showModeToggle = true)
         }
     }
 }

@@ -27,7 +27,7 @@ import com.blackhito.ui.utils.getEndOfDay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalendarScreen(modifier: Modifier = Modifier) {
+fun CalendarScreen(modifier: Modifier = Modifier, onAddNewNoteClick: () -> Unit) {
     val viewModel = CalendarViewModel()
     val chosenDayNoteList by viewModel.getDayNotesList().collectAsStateWithLifecycle()
 
@@ -66,9 +66,7 @@ fun CalendarScreen(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .align(alignment = Alignment.BottomEnd)
                 .padding(16.dp),
-            onClick = {
-
-            }) {
+            onClick = onAddNewNoteClick) {
             Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
         }
     }
@@ -78,6 +76,6 @@ fun CalendarScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun CalendarScreenPreview() {
     CalendarNoteTheme {
-        CalendarScreen()
+        CalendarScreen(onAddNewNoteClick = {})
     }
 }
