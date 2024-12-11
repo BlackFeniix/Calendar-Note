@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 interface NoteRepository {
     fun getNote(id: Int): Flow<Note>
 
-    fun getAllNotesInDay(): Flow<List<Note>>
+    fun getAllNotesInDay(startDay: Long, finishDay: Long): Flow<List<Note>>
 
     suspend fun addNewNote(note: Note)
 
-    suspend fun deleteNote(id: Int)
+    suspend fun deleteNote(note: Note)
 }
