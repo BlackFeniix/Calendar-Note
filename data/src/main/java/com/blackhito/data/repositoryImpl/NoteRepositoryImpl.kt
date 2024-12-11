@@ -4,11 +4,11 @@ import com.blackhito.data.database.NoteDao
 import com.blackhito.data.models.mappers.NoteEntityToNoteMapper
 import com.blackhito.data.models.mappers.NoteToNoteEntityMapper
 import com.blackhito.domain.models.Note
-import com.blackhito.domain.repository.NoteRepository
+import com.blackhito.domain.repository.INoteRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class NoteRepositoryImpl(private val noteDao: NoteDao) : NoteRepository {
+class NoteRepositoryImpl(private val noteDao: NoteDao) : INoteRepository {
     override fun getNote(id: Int): Flow<Note> {
         return noteDao.getNote(id = id).map { NoteEntityToNoteMapper.mapFrom(it) }
     }
