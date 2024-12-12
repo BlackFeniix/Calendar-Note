@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
     implementation(libs.koin.android)
     testImplementation(libs.koin.test.junit5)
