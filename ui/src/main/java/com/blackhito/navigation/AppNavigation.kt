@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.blackhito.ui.screens.addnote.AddNewNoteScreen
 import com.blackhito.ui.screens.calendar.CalendarScreen
+import com.blackhito.ui.screens.editnote.EditNoteScreen
+import com.blackhito.ui.screens.notedetails.NoteDetailsScreen
 
 @Composable
 fun AppNavigation(
@@ -19,13 +21,34 @@ fun AppNavigation(
         startDestination = Screen.NoteCalendar
     ) {
         composable<Screen.NoteCalendar> {
-            CalendarScreen(onAddNewNoteClick = {
-                navController.navigate(Screen.AddNote)
-            })
+            CalendarScreen(
+                onNavigateToAddNewNote = {
+                    navController.navigate(Screen.AddNote)
+                },
+                onNavigateToNoteDetails = { id ->
+                    navController.navigate(Screen.NoteDetails(id))
+                }
+            )
         }
 
         composable<Screen.AddNote> {
             AddNewNoteScreen()
+        }
+
+        composable<Screen.NoteDetails> {
+            NoteDetailsScreen(onNavigateToEditNote = { noteId ->
+                navController.navigate(Screen.EditNote(noteId))
+            })
+        }
+
+        composable<Screen.EditNote> {
+            EditNoteScreen(onNavigateToNoteDetails = { noteId ->
+                navController.navigate(Screen.NoteDetails(noteId)) {
+                    popUpTo(Screen.NoteDetails(noteId)) {
+                        inclusive = true
+                    }
+                }
+            })
         }
     }
 }

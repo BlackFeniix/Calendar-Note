@@ -11,5 +11,8 @@ sealed class Screen {
     data object AddNote : Screen()
 
     @Serializable
-    data object NoteDetails : Screen()
+    data class NoteDetails(val id: Int) : Screen()
+
+    @Serializable
+    data class EditNote(val id: Int) : Screen()
 }
