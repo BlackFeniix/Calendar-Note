@@ -25,4 +25,8 @@ class NoteRepositoryImpl(private val noteDao: NoteDao) : INoteRepository {
     override suspend fun deleteNote(note: Note) {
         noteDao.deleteNote(note = NoteToNoteEntityMapper.mapFrom(note))
     }
+
+    override suspend fun updateNote(note: Note) {
+        noteDao.updateNote(note = NoteToNoteEntityMapper.mapFrom(note))
+    }
 }
