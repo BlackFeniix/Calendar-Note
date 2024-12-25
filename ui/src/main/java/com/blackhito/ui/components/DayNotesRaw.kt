@@ -18,10 +18,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.blackhito.models.NoteUI
+import com.blackhito.ui.R
 import com.blackhito.ui.theme.CalendarNoteTheme
 import com.blackhito.ui.utils.convertMillisToHour
 
@@ -115,7 +117,7 @@ internal fun TableNoteCell(
 @Composable
 fun TableNoteEmptyCell(modifier: Modifier = Modifier) {
     Box(modifier = modifier) {
-        Text(text = "No notes")
+        Text(text = stringResource(R.string.no_notes))
     }
 }
 

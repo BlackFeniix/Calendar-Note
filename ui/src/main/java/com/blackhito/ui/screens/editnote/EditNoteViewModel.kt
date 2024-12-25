@@ -41,6 +41,24 @@ internal class EditNoteViewModel(
         }
     }
 
+    fun setDescription(newDescription: String) {
+        _noteState.update {
+            it.copy(description = newDescription)
+        }
+    }
+
+    fun setDateStart(newDateStart: Long, newTimeStart: Long) {
+        _noteState.update {
+            it.copy(dateStart = newDateStart + newTimeStart)
+        }
+    }
+
+    fun setDateFinish(newDateFinish: Long, newTimeFinish: Long) {
+        _noteState.update {
+            it.copy(dateFinish = newDateFinish + newTimeFinish)
+        }
+    }
+
     fun updateNote() {
         viewModelScope.launch {
             noteRepository.updateNote(note = NoteUiToNoteMapper.mapFrom(_noteState.value))

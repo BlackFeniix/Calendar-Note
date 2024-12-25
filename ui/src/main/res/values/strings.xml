@@ -1,2 +1,17 @@
 <resources>
+    <string name="no_notes">Нет заметок</string>
+    <string name="create_note_title">Создание заметки</string>
+    <string name="name">Название</string>
+    <string name="description">Описание</string>
+    <string name="note_start_time">Начало заметки: %1$s</string>
+    <string name="choose_start_time">Выбрать дату начала</string>
+    <string name="note_finish_time">Конец заметки: %1$s</string>
+    <string name="choose_finish_time">Выбрать дату конца</string>
+    <string name="create_note">Создать заметку</string>
+    <string name="ok">OK</string>
+    <string name="save_note">Сохранить заметку</string>
+    <string name="note_title">Заметка</string>
+    <string name="change_start_time">Изменить время начала</string>
+    <string name="change_finish_time">Изменить время окончания</string>
+    <string name="change_note">Изменить</string>
 </resources>

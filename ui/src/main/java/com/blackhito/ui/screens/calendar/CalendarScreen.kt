@@ -16,13 +16,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.blackhito.models.NoteUI
+import com.blackhito.ui.R
 import com.blackhito.ui.components.TableNoteRaw
 import com.blackhito.ui.theme.CalendarNoteTheme
 import com.blackhito.ui.utils.convertMillisToDate
+import com.blackhito.ui.utils.convertTimeToMillis
 import com.blackhito.ui.utils.getEndOfDay
 import org.koin.androidx.compose.koinViewModel
 
@@ -70,8 +73,8 @@ private fun CalendarContentScreen(
             }
 
             items(count = 24) { hour ->
-                val hourStart = selectedDate + hour * 60 * 60 * 1000
-                val hourEnd = hourStart + 60 * 60 * 1000
+                val hourStart = selectedDate + convertTimeToMillis(hour, 0)
+                val hourEnd = hourStart + convertTimeToMillis(1, 0)
                 val tasksInHour = chosenDayNoteList.filter { note ->
                     note.dateStart < hourEnd && note.dateFinish > hourStart
                 }
@@ -92,7 +95,7 @@ private fun CalendarContentScreen(
                 .padding(16.dp),
             onClick = onNavigateToAddNewNote
         ) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
+            Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(R.string.create_note))
         }
     }
 }

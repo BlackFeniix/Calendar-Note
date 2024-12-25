@@ -7,6 +7,7 @@ import androidx.navigation.toRoute
 import com.blackhito.domain.repository.INoteRepository
 import com.blackhito.models.NoteUI
 import com.blackhito.models.mappers.NoteToNoteUiMapper
+import com.blackhito.models.mappers.NoteUiToNoteMapper
 import com.blackhito.navigation.Screen
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

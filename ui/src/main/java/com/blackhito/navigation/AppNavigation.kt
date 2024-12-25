@@ -32,13 +32,19 @@ fun AppNavigation(
         }
 
         composable<Screen.AddNote> {
-            AddNewNoteScreen()
+            AddNewNoteScreen(
+                onNavigateToCalendar = {
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable<Screen.NoteDetails> {
-            NoteDetailsScreen(onNavigateToEditNote = { noteId ->
-                navController.navigate(Screen.EditNote(noteId))
-            })
+            NoteDetailsScreen(
+                onNavigateToEditNote = { noteId ->
+                    navController.navigate(Screen.EditNote(noteId))
+                }
+            )
         }
 
         composable<Screen.EditNote> {
